@@ -5,6 +5,10 @@ class MealsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Let\'s go make Meals App');
+    return const Scaffold(
+      body: Center(
+        child: Text('Let\'s go make Meals App'),
+      ),
+    );
   }
 }
