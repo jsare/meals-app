@@ -11,6 +11,7 @@ class MealDetailsScreen extends StatelessWidget {
 
   final Meal meal;
   final void Function(Meal meal) onToggleFavorite;
+  final bool isFavorite = false; // TODO: Change icon if it select
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,9 @@ class MealDetailsScreen extends StatelessWidget {
             onPressed: () {
               onToggleFavorite(meal);
             },
-            icon: const Icon(Icons.star_rounded),
+            icon: isFavorite
+                ? const Icon(Icons.star_outline_rounded)
+                : const Icon(Icons.star_rounded),
           ),
         ],
       ),
