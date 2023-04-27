@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/meal.dart';
 
-class MealDetailsScreen extends StatelessWidget {
+class MealDetailsScreen extends StatefulWidget {
   const MealDetailsScreen({
     super.key,
     required this.meal,
@@ -11,21 +11,29 @@ class MealDetailsScreen extends StatelessWidget {
 
   final Meal meal;
   final void Function(Meal meal) onToggleFavorite;
-  final bool isFavorite = false; // TODO: Change icon if it select
 
+  @override
+  State<MealDetailsScreen> createState() => _MealDetailsScreenState();
+}
+
+class _MealDetailsScreenState extends State<MealDetailsScreen> {
+  bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(meal.title),
+        title: Text(widget.meal.title),
         actions: [
           IconButton(
             onPressed: () {
-              onToggleFavorite(meal);
+              setState(() {
+                isFavorite = !isFavorite;
+              });
+              widget.onToggleFavorite(widget.meal);
             },
             icon: isFavorite
-                ? const Icon(Icons.star_outline_rounded)
-                : const Icon(Icons.star_rounded),
+                ? const Icon(Icons.star_rounded)
+                : const Icon(Icons.star_outline_rounded),
           ),
         ],
       ),
@@ -33,7 +41,7 @@ class MealDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             Image.network(
-              meal.imageUrl,
+              widget.meal.imageUrl,
               height: 300,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -47,7 +55,7 @@ class MealDetailsScreen extends StatelessWidget {
                   ),
             ),
             const SizedBox(height: 16),
-            for (final ingredient in meal.ingredients)
+            for (final ingredient in widget.meal.ingredients)
               Text(
                 ingredient,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -62,7 +70,7 @@ class MealDetailsScreen extends StatelessWidget {
                   ),
             ),
             const SizedBox(height: 16),
-            for (final step in meal.steps)
+            for (final step in widget.meal.steps)
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
