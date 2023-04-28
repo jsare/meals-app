@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/meal.dart';
 import '../providers/favorites_provider.dart';
 
-class MealDetailsScreen extends ConsumerStatefulWidget {
+class MealDetailsScreen extends ConsumerWidget {
   const MealDetailsScreen({
     super.key,
     required this.meal,
@@ -13,27 +13,20 @@ class MealDetailsScreen extends ConsumerStatefulWidget {
   final Meal meal;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _MealDetailsScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteMeals = ref.watch(favoriteMealsProvider);
 
-class _MealDetailsScreenState extends ConsumerState<MealDetailsScreen> {
-  bool isFavorite = false;
+    final isFavorite = favoriteMeals.contains(meal);
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.meal.title),
+        title: Text(meal.title),
         actions: [
           IconButton(
             onPressed: () {
-              setState(() {
-                isFavorite = !isFavorite;
-              });
               final wasAdded = ref
                   .read(favoriteMealsProvider.notifier)
-                  .toggleMealFavoriteStatus(widget.meal);
+                  .toggleMealFavoriteStatus(meal);
               ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -43,9 +36,9 @@ class _MealDetailsScreenState extends ConsumerState<MealDetailsScreen> {
                 ),
               );
             },
-            icon: isFavorite
-                ? const Icon(Icons.star_rounded)
-                : const Icon(Icons.star_outline_rounded),
+            icon: Icon(
+              isFavorite ? Icons.star_rounded : Icons.star_outline_rounded,
+            ),
           ),
         ],
       ),
@@ -53,7 +46,7 @@ class _MealDetailsScreenState extends ConsumerState<MealDetailsScreen> {
         child: Column(
           children: [
             Image.network(
-              widget.meal.imageUrl,
+              meal.imageUrl,
               height: 300,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -67,7 +60,7 @@ class _MealDetailsScreenState extends ConsumerState<MealDetailsScreen> {
                   ),
             ),
             const SizedBox(height: 16),
-            for (final ingredient in widget.meal.ingredients)
+            for (final ingredient in meal.ingredients)
               Text(
                 ingredient,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -82,7 +75,7 @@ class _MealDetailsScreenState extends ConsumerState<MealDetailsScreen> {
                   ),
             ),
             const SizedBox(height: 16),
-            for (final step in widget.meal.steps)
+            for (final step in meal.steps)
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
