@@ -1,17 +1,24 @@
-# meals_app
+# Meals App
 
-A new Flutter project.
+MealsApp is a simple mobile application for viewing and selecting recipes of dishes.
 
-## Getting Started
+The user can select a category of dishes, view available options, view detailed information about a particular dish, and save their favorite dishes for quick access in the future.
 
-This project is a starting point for a Flutter application.
+## Description of the main functionality
 
-A few resources to get you started if this is your first Flutter project:
++ Displaying a list of food categories on the main screen
++ Bottom Navigation Bar with "Categories" and "Favorites" tabs
++ Drawer with "Meals" and "Filters" tabs
++ The "Filters" screen with the ability to filter dishes by category: Gluten-Free, Lactose-Free, Vegetarian, Vegan
++ View available options of dishes in the selected category on the "Categories" screen
++ Displaying information about the dish (photo, name, cooking time, ease of preparation and affordable) on the dish card
++ Detailed information about the selected dish on the screen with a detailed description (photo of the dish, a list of ingredients and a step-by-step description of the preparation)
++ The ability to add dishes to favorites using the "favorite" button
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies used
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# meals-app
++ Flutter: a framework for developing mobile applications.
++ Dart: An object-oriented programming language used in Flutter application development.
++ Material Design 3
++ Riverpod is a state manager that allows you to effectively manage the state of the application.
++ Implicit and explicit animation
